@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hisab - Professional Workshop Salary Management</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #c0392b;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --gray-color: #95a5a6;
+            --sidebar-width: 250px;
+            --header-height: 70px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Login Page Styles */
+        #loginPage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .login-header {
+            background: var(--primary-color);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .login-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .login-header h1 i {
+            color: var(--secondary-color);
+        }
+
+        .login-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .login-body {
+            padding: 40px 30px;
+        }
+
+        .alert {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .alert-error {
+            background-color: #fee;
+            border-left: 4px solid var(--danger-color);
+            color: var(--danger-color);
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            border-left: 4px solid var(--success-color);
+            color: var(--success-color);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            width: 100%;
+            padding-right: 45px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray-color);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .btn {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 15px;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--gray-color);
+            font-size: 13px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        /* Main App Styles */
+        #mainApp {
+            display: none;
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary-color) 0%, #1a252f 100%);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 24px;
+            color: var(--secondary-color);
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .user-profile {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--secondary-color), var(--success-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 32px;
+        }
+
+        .user-info h3 {
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+
+        .user-info span {
+            font-size: 14px;
+            color: var(--gray-color);
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left-color: var(--secondary-color);
+        }
+
+        .nav-link.active {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: white;
+            border-left-color: var(--secondary-color);
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+        }
+
+        /* Top Header */
+        .top-header {
+            height: var(--header-height);
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--primary-color);
+            cursor: pointer;
+            display: none;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            width: 300px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-color);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notification {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification i {
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--accent-color);
+            color: white;
+            font-size: 10px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-dropdown {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-dropdown img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .user-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f5f5f5;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 5px 0;
+        }
+
+        /* Content Area */
+        .content-wrapper {
+            padding: 30px;
+        }
+
+        /* Dashboard Stats */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card.total-workers {
+            border-left-color: var(--secondary-color);
+        }
+
+        .stat-card.present-today {
+            border-left-color: var(--success-color);
+        }
+
+        .stat-card.pending-salary {
+            border-left-color: var(--warning-color);
+        }
+
+        .stat-card.monthly-expense {
+            border-left-color: var(--accent-color);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .stat-header i {
+            font-size: 24px;
+            color: currentColor;
+            opacity: 0.8;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            color: var(--gray-color);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-change {
+            font-size: 12px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stat-change.positive {
+            color: var(--success-color);
+        }
+
+        .stat-change.negative {
+            color: var(--danger-color);
+        }
+
+        /* Recent Activity */
+        .recent-activity {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .view-all {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .activity-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .activity-icon.present {
+            background-color: var(--success-color);
+        }
+
+        .activity-icon.absent {
+            background-color: var(--danger-color);
+        }
+
+        .activity-details {
+            flex: 1;
+        }
+
+        .activity-details h4 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            color: var(--primary-color);
+        }
+
+        .activity-time {
+            font-size: 12px;
+            color: var(--gray-color);
+        }
+
+        /* Tables */
+        .data-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .table-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .table-header h2 {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: #f8f9fa;
+        }
+
+        th {
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary-color);
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background-color: #d4edda;
+            color: var(--success-color);
+        }
+
+        .status-inactive {
+            background-color: #f8d7da;
+            color: var(--danger-color);
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: var(--warning-color);
+        }
+
+        .status-paid {
+            background-color: #d1ecf1;
+            color: #17a2b8;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-icon {
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-edit {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-delete {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background-color: #c0392b;
+        }
+
+        /* Forms */
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-card {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .required::after {
+            content: '*';
+            color: var(--danger-color);
+            margin-left: 4px;
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+        }
+
+        /* Modals */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--gray-color);
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background-color: #f5f5f5;
+            color: var(--primary-color);
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .modal-footer {
+            padding: 20px 25px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .top-header {
+                padding: 0 15px;
+            }
+
+            .content-wrapper {
+                padding: 15px;
+            }
+
+            .search-box input {
+                width: 200px;
+            }
+
+            .table-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .login-container {
+                margin: 10px;
+            }
+
+            .search-box {
+                display: none;
+            }
+
+            .header-right {
+                gap: 15px;
+            }
+
+            .stat-card {
+                padding: 20px;
+            }
+
+            .stat-value {
+                font-size: 28px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray-color);
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>
+                    <i class="fas fa-calculator"></i>
+                    Hisab
+                </h1>
+                <p>Workshop Salary Management System</p>
+            </div>
+            <div class="login-body">
+                <div id="loginAlert" class="alert alert-error" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span id="alertMessage"></span>
+                </div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Username</label>
+                        <input type="text" id="username" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" class="form-control" required />
+                            <button type="button" id="togglePassword" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </button>
+                </form>
+            </div>
+            <div class="login-footer">
+                <p>&copy; 2025 Hisab Workshop Management. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp">
+        <div class="app-container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <i class="fas fa-calculator"></i>
+                        <h1>Hisab</h1>
+                    </div>
+                </div>
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <h3>Admin</h3>
+                        <span>Administrator</span>
+                    </div>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-page="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-page="workers">
+                            <i class="fas fa-users"></i>
+                            Workers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-page="attendance">
+                            <i class="fas fa-calendar-check"></i>
+                            Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-page="salary">
+                            <i class="fas fa-money-bill-wave"></i>
+                            Salary
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-page="reports">
+                            <i class="fas fa-chart-bar"></i>
+                            Reports
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-page="settings">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="top-header">
+                    <div class="header-left">
+                        <button class="menu-toggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search..." />
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <div class="notification">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </div>
+                        <div class="user-dropdown">
+                            <div class="user-dropdown-toggle">
+                                <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ccc'%3e%3ccircle cx='12' cy='8' r='4'/%3e%3cpath d='M20 20c0 2.2-1.8 4-4 4H8c-2.2 0-4-1.8-4-4V18c0-2.2 1.8-4 4-4h8c2.2 0 4 1.8 4 4v2z'/%3e%3c/svg%3e" alt="User" />
+                                <span>Admin</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="dropdown-menu">
+                                <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-wrapper">
+                    <!-- Dashboard -->
+                    <div id="dashboard" class="page-content">
+                        <div class="dashboard-stats">
+                            <div class="stat-card total-workers">
+                                <div class="stat-header">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-value" id="totalWorkers">25</div>
+                                <div class="stat-label">Total Workers</div>
+                                <div class="stat-change positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    +2 this month
+                                </div>
+                            </div>
+                            <div class="stat-card present-today">
+                                <div class="stat-header">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="stat-value" id="presentToday">22</div>
+                                <div class="stat-label">Present Today</div>
+                                <div class="stat-change positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    88% attendance
+                                </div>
+                            </div>
+                            <div class="stat-card pending-salary">
+                                <div class="stat-header">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="stat-value" id="pendingSalary">₹45,000</div>
+                                <div class="stat-label">Pending Salary</div>
+                                <div class="stat-change negative">
+                                    <i class="fas fa-arrow-down"></i>
+                                    -5% from last month
+                                </div>
+                            </div>
+                            <div class="stat-card monthly-expense">
+                                <div class="stat-header">
+                                    <i class="fas fa-rupee-sign"></i>
+                                </div>
+                                <div class="stat-value" id="monthlyExpense">₹2,50,000</div>
+                                <div class="stat-label">Monthly Expense</div>
+                                <div class="stat-change positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    +12% from last month
+                                </div>
+                            </div>
+                        </div>
+                        <div class="recent-activity">
+                            <div class="section-header">
+                                <h2>Recent Activity</h2>
+                                <a href="#" class="view-all">View All</a>
+                            </div>
+                            <ul class="activity-list" id="activityList">
+                                <li class="activity-item">
+                                    <div class="activity-icon present">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <h4>Ram Kumar marked present</h4>
+                                        <div class="activity-time">2 hours ago</div>
+                                    </div>
+                                </li>
+                                <li class="activity-item">
+                                    <div class="activity-icon absent">
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <h4>Shyam Lal marked absent</h4>
+                                        <div class="activity-time">4 hours ago</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Workers Page -->
+                    <div id="workers" class="page-content" style="display: none;">
+                        <div class="data-table">
+                            <div class="table-header">
+                                <h2>Workers</h2>
+                                <div class="table-actions">
+                                    <button class="btn btn-success" onclick="openAddWorkerModal()">
+                                        <i class="fas fa-plus"></i>
+                                        Add Worker
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Phone</th>
+                                            <th>Daily Wage</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="workersTableBody">
+                                        <!-- Workers will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Other pages can be added similarly -->
+                    <div id="attendance" class="page-content" style="display: none;">
+                        <h2>Attendance Page</h2>
+                        <p>Attendance tracking functionality will be implemented here.</p>
+                    </div>
+                    <div id="salary" class="page-content" style="display: none;">
+                        <h2>Salary Page</h2>
+                        <p>Salary calculation functionality will be implemented here.</p>
+                    </div>
+                    <div id="reports" class="page-content" style="display: none;">
+                        <h2>Reports Page</h2>
+                        <p>Reports functionality will be implemented here.</p>
+                    </div>
+                    <div id="settings" class="page-content" style="display: none;">
+                        <h2>Settings Page</h2>
+                        <p>Settings functionality will be implemented here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Worker Modal -->
+    <div id="addWorkerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Worker</h3>
+                <button class="close-modal" onclick="closeModal('addWorkerModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addWorkerForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="required">Name</label>
+                            <input type="text" id="workerName" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" id="workerPhone" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" id="workerAddress" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Daily Wage</label>
+                            <input type="number" id="workerWage" class="form-control" required />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addWorkerModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="addWorker()">Add Worker</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data storage (using localStorage for demo)
+        let workers = JSON.parse(localStorage.getItem('workers')) || [];
+        let currentPage = 'dashboard';
+
+        // DOM elements
+        const loginPage = document.getElementById('loginPage');
+        const mainApp = document.getElementById('mainApp');
+        const loginForm = document.getElementById('loginForm');
+        const loginAlert = document.getElementById('loginAlert');
+        const alertMessage = document.getElementById('alertMessage');
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pageContents = document.querySelectorAll('.page-content');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+                showApp();
+            }
+
+            // Load data
+            loadWorkers();
+            updateDashboardStats();
+        });
+
+        // Login functionality
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Simple authentication (replace with real auth)
+            if (username === 'admin' && password === 'admin') {
+                localStorage.setItem('isLoggedIn', 'true');
+                showApp();
+            } else {
+                showAlert('Invalid username or password');
+            }
+        });
+
+        // Toggle password visibility
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            this.querySelector('i').className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+        });
+
+        // Navigation
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const page = this.getAttribute('data-page');
+                switchPage(page);
+            });
+        });
+
+        // Functions
+        function showApp() {
+            loginPage.style.display = 'none';
+            mainApp.style.display = 'block';
+        }
+
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            mainApp.style.display = 'none';
+            loginPage.style.display = 'flex';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        function showAlert(message) {
+            alertMessage.textContent = message;
+            loginAlert.style.display = 'flex';
+            setTimeout(() => {
+                loginAlert.style.display = 'none';
+            }, 3000);
+        }
+
+        function switchPage(page) {
+            // Update navigation
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === page) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Show page content
+            pageContents.forEach(content => {
+                content.style.display = 'none';
+            });
+            document.getElementById(page).style.display = 'block';
+
+            currentPage = page;
+        }
+
+        function loadWorkers() {
+            const tbody = document.getElementById('workersTableBody');
+            tbody.innerHTML = '';
+
+            if (workers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><i class="fas fa-users"></i><h3>No workers found</h3><p>Add your first worker to get started.</p></td></tr>';
+                return;
+            }
+
+            workers.forEach((worker, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${worker.name}</td>
+                    <td>${worker.phone || '-'}</td>
+                    <td>₹${worker.dailyWage}</td>
+                    <td><span class="status-badge status-active">Active</span></td>
+                    <td class="action-buttons">
+                        <button class="btn-icon btn-edit" onclick="editWorker(${index})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon btn-delete" onclick="deleteWorker(${index})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function updateDashboardStats() {
+            document.getElementById('totalWorkers').textContent = workers.length;
+            // Update other stats as needed
+        }
+
+        function openAddWorkerModal() {
+            document.getElementById('addWorkerModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function addWorker() {
+            const name = document.getElementById('workerName').value;
+            const phone = document.getElementById('workerPhone').value;
+            const address = document.getElementById('workerAddress').value;
+            const dailyWage = parseFloat(document.getElementById('workerWage').value);
+
+            if (!name || !dailyWage) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const worker = {
+                name,
+                phone,
+                address,
+                dailyWage,
+                joinDate: new Date().toISOString(),
+                status: 'active'
+            };
+
+            workers.push(worker);
+            localStorage.setItem('workers', JSON.stringify(workers));
+
+            loadWorkers();
+            updateDashboardStats();
+            closeModal('addWorkerModal');
+            document.getElementById('addWorkerForm').reset();
+        }
+
+        function editWorker(index) {
+            // Implement edit functionality
+            alert('Edit functionality to be implemented');
+        }
+
+        function deleteWorker(index) {
+            if (confirm('Are you sure you want to delete this worker?')) {
+                workers.splice(index, 1);
+                localStorage.setItem('workers', JSON.stringify(workers));
+                loadWorkers();
+                updateDashboardStats();
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</body>
+</html>
