@@ -2314,6 +2314,8 @@
         const navLinks = document.querySelectorAll('.nav-link');
         const pageContents = document.querySelectorAll('.page-content');
 
+        console.log('DOM elements loaded:', { loginPage, mainApp, loginForm });
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOMContentLoaded fired');
@@ -2392,13 +2394,20 @@
                     // Force a re-render by triggering a reflow
                     mainApp.offsetHeight;
                     console.log('Main app display style:', mainApp.style.display);
+
+                    // Add a visual confirmation
+                    setTimeout(() => {
+                        alert('Login successful! Welcome to Hisab Dashboard.');
+                    }, 500);
                 } else {
                     console.error('Login page or main app elements not found');
                     console.error('loginPage:', loginPage);
                     console.error('mainApp:', mainApp);
+                    alert('Error: Could not find app elements. Please refresh the page.');
                 }
             } catch (error) {
                 console.error('Error showing app:', error);
+                alert('Error showing app: ' + error.message);
             }
         }
 
