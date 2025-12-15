@@ -6,34 +6,34 @@
     <title>Hisab - Professional Workshop Salary Management</title>
     <style>
         /* Unicode Icons as Fallback */
-        .icon-calculator:before { content: "🧮"; }
-        .icon-user:before { content: "👤"; }
-        .icon-lock:before { content: "🔒"; }
-        .icon-eye:before { content: "👁️"; }
-        .icon-eye-slash:before { content: "🙈"; }
-        .icon-sign-in:before { content: "→"; }
-        .icon-exclamation:before { content: "⚠️"; }
-        .icon-tachometer:before { content: "📊"; }
-        .icon-users:before { content: "👥"; }
-        .icon-calendar:before { content: "📅"; }
-        .icon-money:before { content: "💰"; }
-        .icon-chart:before { content: "📈"; }
-        .icon-cog:before { content: "⚙️"; }
-        .icon-bars:before { content: "☰"; }
-        .icon-search:before { content: "🔍"; }
-        .icon-bell:before { content: "🔔"; }
-        .icon-chevron-down:before { content: "▼"; }
-        .icon-sign-out:before { content: "←"; }
-        .icon-check-circle:before { content: "✅"; }
-        .icon-clock:before { content: "🕐"; }
-        .icon-rupee:before { content: "₹"; }
-        .icon-arrow-up:before { content: "↑"; }
-        .icon-arrow-down:before { content: "↓"; }
-        .icon-check:before { content: "✓"; }
-        .icon-times:before { content: "✗"; }
-        .icon-plus:before { content: "+"; }
-        .icon-edit:before { content: "✏️"; }
-        .icon-trash:before { content: "🗑️"; }
+        .icon-calculator:before { content: "🧮"; font-family: Arial, sans-serif; }
+        .icon-user:before { content: "👤"; font-family: Arial, sans-serif; }
+        .icon-lock:before { content: "🔒"; font-family: Arial, sans-serif; }
+        .icon-eye:before { content: "👁️"; font-family: Arial, sans-serif; }
+        .icon-eye-slash:before { content: "🙈"; font-family: Arial, sans-serif; }
+        .icon-sign-in:before { content: "→"; font-family: Arial, sans-serif; }
+        .icon-exclamation:before { content: "⚠️"; font-family: Arial, sans-serif; }
+        .icon-tachometer:before { content: "📊"; font-family: Arial, sans-serif; }
+        .icon-users:before { content: "👥"; font-family: Arial, sans-serif; }
+        .icon-calendar:before { content: "📅"; font-family: Arial, sans-serif; }
+        .icon-money:before { content: "💰"; font-family: Arial, sans-serif; }
+        .icon-chart:before { content: "📈"; font-family: Arial, sans-serif; }
+        .icon-cog:before { content: "⚙️"; font-family: Arial, sans-serif; }
+        .icon-bars:before { content: "☰"; font-family: Arial, sans-serif; }
+        .icon-search:before { content: "🔍"; font-family: Arial, sans-serif; }
+        .icon-bell:before { content: "🔔"; font-family: Arial, sans-serif; }
+        .icon-chevron-down:before { content: "▼"; font-family: Arial, sans-serif; }
+        .icon-sign-out:before { content: "←"; font-family: Arial, sans-serif; }
+        .icon-check-circle:before { content: "✅"; font-family: Arial, sans-serif; }
+        .icon-clock:before { content: "🕐"; font-family: Arial, sans-serif; }
+        .icon-rupee:before { content: "₹"; font-family: Arial, sans-serif; }
+        .icon-arrow-up:before { content: "↑"; font-family: Arial, sans-serif; }
+        .icon-arrow-down:before { content: "↓"; font-family: Arial, sans-serif; }
+        .icon-check:before { content: "✓"; font-family: Arial, sans-serif; }
+        .icon-times:before { content: "✗"; font-family: Arial, sans-serif; }
+        .icon-plus:before { content: "+"; font-family: Arial, sans-serif; }
+        .icon-edit:before { content: "✏️"; font-family: Arial, sans-serif; }
+        .icon-trash:before { content: "🗑️"; font-family: Arial, sans-serif; }
 
         /* Reset and Base Styles */
         * {
@@ -2399,8 +2399,10 @@
 
                     // Add a visual confirmation
                     setTimeout(() => {
-                        alert('Login successful! Welcome to Hisab Dashboard.');
-                    }, 500);
+                        alert('🎉 Login successful! Welcome to Hisab Dashboard.\n\nIf you see this alert but the screen appears blank, there might be a CSS issue with the dashboard content.');
+                        console.log('Dashboard element:', document.getElementById('dashboard'));
+                        console.log('Dashboard display style:', document.getElementById('dashboard').style.display);
+                    }, 1000);
                 } else {
                     console.error('Login page or main app elements not found');
                     console.error('loginPage:', loginPage);
@@ -2477,7 +2479,16 @@
         }
 
         function updateDashboardStats() {
-            document.getElementById('totalWorkers').textContent = workers.length;
+            console.log('Updating dashboard stats...');
+            const totalWorkersElement = document.getElementById('totalWorkers');
+            console.log('totalWorkers element:', totalWorkersElement);
+
+            if (totalWorkersElement) {
+                totalWorkersElement.textContent = workers.length;
+                console.log('Updated total workers to:', workers.length);
+            } else {
+                console.error('totalWorkers element not found!');
+            }
             // Update other stats as needed
         }
 
