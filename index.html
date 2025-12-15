@@ -4,8 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hisab - Professional Workshop Salary Management</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Unicode Icons as Fallback */
+        .icon-calculator:before { content: "🧮"; }
+        .icon-user:before { content: "👤"; }
+        .icon-lock:before { content: "🔒"; }
+        .icon-eye:before { content: "👁️"; }
+        .icon-eye-slash:before { content: "🙈"; }
+        .icon-sign-in:before { content: "→"; }
+        .icon-exclamation:before { content: "⚠️"; }
+        .icon-tachometer:before { content: "📊"; }
+        .icon-users:before { content: "👥"; }
+        .icon-calendar:before { content: "📅"; }
+        .icon-money:before { content: "💰"; }
+        .icon-chart:before { content: "📈"; }
+        .icon-cog:before { content: "⚙️"; }
+        .icon-bars:before { content: "☰"; }
+        .icon-search:before { content: "🔍"; }
+        .icon-bell:before { content: "🔔"; }
+        .icon-chevron-down:before { content: "▼"; }
+        .icon-sign-out:before { content: "←"; }
+        .icon-check-circle:before { content: "✅"; }
+        .icon-clock:before { content: "🕐"; }
+        .icon-rupee:before { content: "₹"; }
+        .icon-arrow-up:before { content: "↑"; }
+        .icon-arrow-down:before { content: "↓"; }
+        .icon-check:before { content: "✓"; }
+        .icon-times:before { content: "✗"; }
+        .icon-plus:before { content: "+"; }
+        .icon-edit:before { content: "✏️"; }
+        .icon-trash:before { content: "🗑️"; }
+
         /* Reset and Base Styles */
         * {
             margin: 0;
@@ -1974,32 +2003,32 @@
         <div class="login-container">
             <div class="login-header">
                 <h1>
-                    <i class="fas fa-calculator"></i>
+                    <i class="icon-calculator"></i>
                     Hisab
                 </h1>
                 <p>Workshop Salary Management System</p>
             </div>
             <div class="login-body">
                 <div id="loginAlert" class="alert alert-error" style="display: none;">
-                    <i class="fas fa-exclamation-triangle"></i>
+                    <i class="icon-exclamation"></i>
                     <span id="alertMessage"></span>
                 </div>
                 <form id="loginForm">
                     <div class="form-group">
-                        <label><i class="fas fa-user"></i> Username</label>
+                        <label><i class="icon-user"></i> Username</label>
                         <input type="text" id="username" class="form-control" required />
                     </div>
                     <div class="form-group">
-                        <label><i class="fas fa-lock"></i> Password</label>
+                        <label><i class="icon-lock"></i> Password</label>
                         <div class="password-wrapper">
                             <input type="password" id="password" class="form-control" required />
                             <button type="button" id="togglePassword" class="toggle-password">
-                                <i class="fas fa-eye"></i>
+                                <i class="icon-eye"></i>
                             </button>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-sign-in-alt"></i>
+                        <i class="icon-sign-in"></i>
                         Login
                     </button>
                 </form>
@@ -2017,13 +2046,13 @@
             <div class="sidebar">
                 <div class="sidebar-header">
                     <div class="logo">
-                        <i class="fas fa-calculator"></i>
+                        <i class="icon-calculator"></i>
                         <h1>Hisab</h1>
                     </div>
                 </div>
                 <div class="user-profile">
                     <div class="user-avatar">
-                        <i class="fas fa-user"></i>
+                        <i class="icon-user"></i>
                     </div>
                     <div class="user-info">
                         <h3>Admin</h3>
@@ -2033,37 +2062,37 @@
                 <ul class="nav-menu">
                     <li class="nav-item">
                         <a class="nav-link active" data-page="dashboard">
-                            <i class="fas fa-tachometer-alt"></i>
+                            <i class="icon-tachometer"></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-page="workers">
-                            <i class="fas fa-users"></i>
+                            <i class="icon-users"></i>
                             Workers
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-page="attendance">
-                            <i class="fas fa-calendar-check"></i>
+                            <i class="icon-calendar"></i>
                             Attendance
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-page="salary">
-                            <i class="fas fa-money-bill-wave"></i>
+                            <i class="icon-money"></i>
                             Salary
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-page="reports">
-                            <i class="fas fa-chart-bar"></i>
+                            <i class="icon-chart"></i>
                             Reports
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-page="settings">
-                            <i class="fas fa-cog"></i>
+                            <i class="icon-cog"></i>
                             Settings
                         </a>
                     </li>
@@ -2075,26 +2104,26 @@
                 <div class="top-header">
                     <div class="header-left">
                         <button class="menu-toggle">
-                            <i class="fas fa-bars"></i>
+                            <i class="icon-bars"></i>
                         </button>
                         <div class="search-box">
-                            <i class="fas fa-search"></i>
+                            <i class="icon-search"></i>
                             <input type="text" placeholder="Search..." />
                         </div>
                     </div>
                     <div class="header-right">
                         <div class="notification">
-                            <i class="fas fa-bell"></i>
+                            <i class="icon-bell"></i>
                             <span class="notification-badge">3</span>
                         </div>
                         <div class="user-dropdown">
                             <div class="user-dropdown-toggle">
                                 <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ccc'%3e%3ccircle cx='12' cy='8' r='4'/%3e%3cpath d='M20 20c0 2.2-1.8 4-4 4H8c-2.2 0-4-1.8-4-4V18c0-2.2 1.8-4 4-4h8c2.2 0 4 1.8 4 4v2z'/%3e%3c/svg%3e" alt="User" />
                                 <span>Admin</span>
-                                <i class="fas fa-chevron-down"></i>
+                                <i class="icon-chevron-down"></i>
                             </div>
                             <div class="dropdown-menu">
-                                <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                                <a href="#" onclick="logout()"><i class="icon-sign-out"></i> Logout</a>
                             </div>
                         </div>
                     </div>
@@ -2105,45 +2134,45 @@
                         <div class="dashboard-stats">
                             <div class="stat-card total-workers">
                                 <div class="stat-header">
-                                    <i class="fas fa-users"></i>
+                                    <i class="icon-users"></i>
                                 </div>
                                 <div class="stat-value" id="totalWorkers">25</div>
                                 <div class="stat-label">Total Workers</div>
                                 <div class="stat-change positive">
-                                    <i class="fas fa-arrow-up"></i>
+                                    <i class="icon-arrow-up"></i>
                                     +2 this month
                                 </div>
                             </div>
                             <div class="stat-card present-today">
                                 <div class="stat-header">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="icon-check-circle"></i>
                                 </div>
                                 <div class="stat-value" id="presentToday">22</div>
                                 <div class="stat-label">Present Today</div>
                                 <div class="stat-change positive">
-                                    <i class="fas fa-arrow-up"></i>
+                                    <i class="icon-arrow-up"></i>
                                     88% attendance
                                 </div>
                             </div>
                             <div class="stat-card pending-salary">
                                 <div class="stat-header">
-                                    <i class="fas fa-clock"></i>
+                                    <i class="icon-clock"></i>
                                 </div>
                                 <div class="stat-value" id="pendingSalary">₹45,000</div>
                                 <div class="stat-label">Pending Salary</div>
                                 <div class="stat-change negative">
-                                    <i class="fas fa-arrow-down"></i>
+                                    <i class="icon-arrow-down"></i>
                                     -5% from last month
                                 </div>
                             </div>
                             <div class="stat-card monthly-expense">
                                 <div class="stat-header">
-                                    <i class="fas fa-rupee-sign"></i>
+                                    <i class="icon-rupee"></i>
                                 </div>
                                 <div class="stat-value" id="monthlyExpense">₹2,50,000</div>
                                 <div class="stat-label">Monthly Expense</div>
                                 <div class="stat-change positive">
-                                    <i class="fas fa-arrow-up"></i>
+                                    <i class="icon-arrow-up"></i>
                                     +12% from last month
                                 </div>
                             </div>
@@ -2156,7 +2185,7 @@
                             <ul class="activity-list" id="activityList">
                                 <li class="activity-item">
                                     <div class="activity-icon present">
-                                        <i class="fas fa-check"></i>
+                                        <i class="icon-check"></i>
                                     </div>
                                     <div class="activity-details">
                                         <h4>Ram Kumar marked present</h4>
@@ -2165,7 +2194,7 @@
                                 </li>
                                 <li class="activity-item">
                                     <div class="activity-icon absent">
-                                        <i class="fas fa-times"></i>
+                                        <i class="icon-times"></i>
                                     </div>
                                     <div class="activity-details">
                                         <h4>Shyam Lal marked absent</h4>
@@ -2183,7 +2212,7 @@
                                 <h2>Workers</h2>
                                 <div class="table-actions">
                                     <button class="btn btn-success" onclick="openAddWorkerModal()">
-                                        <i class="fas fa-plus"></i>
+                                        <i class="icon-plus"></i>
                                         Add Worker
                                     </button>
                                 </div>
@@ -2235,7 +2264,7 @@
             <div class="modal-header">
                 <h3>Add New Worker</h3>
                 <button class="close-modal" onclick="closeModal('addWorkerModal')">
-                    <i class="fas fa-times"></i>
+                    <i class="icon-times"></i>
                 </button>
             </div>
             <div class="modal-body">
@@ -2336,7 +2365,7 @@
         togglePassword.addEventListener('click', function() {
             const type = passwordInput.type === 'password' ? 'text' : 'password';
             passwordInput.type = type;
-            this.querySelector('i').className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+            this.querySelector('i').className = type === 'password' ? 'icon-eye' : 'icon-eye-slash';
         });
 
         // Navigation
@@ -2412,7 +2441,7 @@
             tbody.innerHTML = '';
 
             if (workers.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><i class="fas fa-users"></i><h3>No workers found</h3><p>Add your first worker to get started.</p></td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><i class="icon-users"></i><h3>No workers found</h3><p>Add your first worker to get started.</p></td></tr>';
                 return;
             }
 
@@ -2425,10 +2454,10 @@
                     <td><span class="status-badge status-active">Active</span></td>
                     <td class="action-buttons">
                         <button class="btn-icon btn-edit" onclick="editWorker(${index})">
-                            <i class="fas fa-edit"></i>
+                            <i class="icon-edit"></i>
                         </button>
                         <button class="btn-icon btn-delete" onclick="deleteWorker(${index})">
-                            <i class="fas fa-trash"></i>
+                            <i class="icon-trash"></i>
                         </button>
                     </td>
                 `;
