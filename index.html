@@ -4,48 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hisab - Professional Workshop Salary Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Font Awesome Icons (Embedded) */
-        @font-face {
-            font-family: 'Font Awesome 6 Free';
-            font-style: normal;
-            font-weight: 900;
-            font-display: block;
-            src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2") format("woff2"),
-                 url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.ttf") format("truetype");
-        }
-
-        .fas:before { font-family: 'Font Awesome 6 Free'; font-weight: 900; }
-
-        .fa-calculator:before { content: "\f1ec"; }
-        .fa-user:before { content: "\f007"; }
-        .fa-lock:before { content: "\f023"; }
-        .fa-eye:before { content: "\f06e"; }
-        .fa-eye-slash:before { content: "\f070"; }
-        .fa-sign-in-alt:before { content: "\f2f6"; }
-        .fa-exclamation-triangle:before { content: "\f071"; }
-        .fa-tachometer-alt:before { content: "\f3fd"; }
-        .fa-users:before { content: "\f0c0"; }
-        .fa-calendar-check:before { content: "\f274"; }
-        .fa-money-bill-wave:before { content: "\f53a"; }
-        .fa-chart-bar:before { content: "\f080"; }
-        .fa-cog:before { content: "\f013"; }
-        .fa-bars:before { content: "\f0c9"; }
-        .fa-search:before { content: "\f002"; }
-        .fa-bell:before { content: "\f0f3"; }
-        .fa-chevron-down:before { content: "\f078"; }
-        .fa-sign-out-alt:before { content: "\f2f5"; }
-        .fa-check-circle:before { content: "\f058"; }
-        .fa-clock:before { content: "\f017"; }
-        .fa-rupee-sign:before { content: "\f156"; }
-        .fa-arrow-up:before { content: "\f062"; }
-        .fa-arrow-down:before { content: "\f063"; }
-        .fa-check:before { content: "\f00c"; }
-        .fa-times:before { content: "\f00d"; }
-        .fa-plus:before { content: "\f067"; }
-        .fa-edit:before { content: "\f044"; }
-        .fa-trash:before { content: "\f1f8"; }
-
         /* Reset and Base Styles */
         * {
             margin: 0;
@@ -2327,16 +2287,22 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOMContentLoaded fired');
             try {
                 // Check if logged in
                 const isLoggedIn = localStorage.getItem('isLoggedIn');
+                console.log('isLoggedIn from localStorage:', isLoggedIn);
                 if (isLoggedIn === 'true') {
+                    console.log('User is logged in, showing app');
                     showApp();
+                } else {
+                    console.log('User is not logged in, showing login page');
                 }
 
                 // Load data
                 loadWorkers();
                 updateDashboardStats();
+                console.log('Initialization complete');
             } catch (error) {
                 console.error('Initialization error:', error);
             }
@@ -2345,15 +2311,19 @@
         // Login functionality
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            console.log('Login form submitted');
             try {
                 const username = document.getElementById('username').value;
                 const password = document.getElementById('password').value;
+                console.log('Username:', username, 'Password:', password);
 
                 // Simple authentication (replace with real auth)
                 if (username === 'admin' && password === 'admin') {
+                    console.log('Login successful, calling showApp');
                     localStorage.setItem('isLoggedIn', 'true');
                     showApp();
                 } else {
+                    console.log('Login failed - invalid credentials');
                     showAlert('Invalid username or password');
                 }
             } catch (error) {
@@ -2380,13 +2350,23 @@
 
         // Functions
         function showApp() {
+            console.log('showApp called');
             try {
+                console.log('loginPage element:', loginPage);
+                console.log('mainApp element:', mainApp);
+
                 if (loginPage && mainApp) {
                     loginPage.style.display = 'none';
                     mainApp.style.display = 'block';
                     console.log('App shown successfully');
+
+                    // Force a re-render by triggering a reflow
+                    mainApp.offsetHeight;
+                    console.log('Main app display style:', mainApp.style.display);
                 } else {
                     console.error('Login page or main app elements not found');
+                    console.error('loginPage:', loginPage);
+                    console.error('mainApp:', mainApp);
                 }
             } catch (error) {
                 console.error('Error showing app:', error);
